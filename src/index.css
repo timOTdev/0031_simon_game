@@ -2,4 +2,97 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  text-align: center;
+}
+
+/* App Component */
+.App {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  max-width: 50%;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.App h1 {
+  width: 100%;
+}
+
+.App h2 {
+  width: 100%;
+}
+
+/* Board Component */
+.Board {
+  display: flex;
+  width: 44em;
+  height: 44em;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  border-radius: 50% 50% 50% 50%;
+  background: gray;
+}
+
+/* Button Component */
+.Board > * {
+  width: 24em;
+  height: 24em;
+  opacity: 0.5;
+}
+
+.Board > *:hover {
+  cursor: pointer;
+}
+
+.Board > *:focus {
+  outline: none;
+}
+
+.button1 {
+  border-radius: 100% 0 0 0;
+  background: green;
+  margin-right: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.button2 {
+  border-radius: 0 100% 0 0;
+  background: red;
+  margin-left: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.button3 {
+  border-radius: 0 0 0 100%;
+  background: yellow;
+  margin-right: 0.5em;
+  margin-top: 0.5em;
+}
+
+.button4 {
+  border-radius: 0 0 100% 0;
+  background: blue;
+  margin-left: 0.5em;
+  margin-top: 0.5em;
+}
+
+.lit {
+  opacity: 1;
+  border: 3px solid white;
+}
+
+
+/* Options Component */
+.Options {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.Options button {
+  width: 5em;
+  height: 5em;
 }
