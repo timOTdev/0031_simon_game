@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 
 import Board from './components/Board'
 import Options from './components/Options'
+import green from './sounds/green.wav'
+import red from './sounds/red.wav'
+import yellow from './sounds/yellow.wav'
+import blue from './sounds/blue.wav'
 
 class App extends Component {
   constructor() {
@@ -13,7 +17,26 @@ class App extends Component {
       isPlayerTurn: false,
     }
   }
-  
+
+  playSound = (item) => {
+    switch (item) {
+      case 1:
+        new Audio(green).play()
+        break;
+      case 2:
+        new Audio(red).play()
+        break;
+      case 3:
+        new Audio(yellow).play()
+        break;
+      case 4:
+        new Audio(blue).play()
+        break;
+      default:
+        break;
+    }
+  }
+
   lightUp = (item) => {
     let tile = document.querySelector(`.button${item}`)
     tile.classList.add("lit")
