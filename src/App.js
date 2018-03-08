@@ -13,12 +13,35 @@ class App extends Component {
       isPlayerTurn: false,
     }
   }
+  
+  lightUp = (item) => {
+    let tile = document.querySelector(`.button${item}`)
+    tile.classList.add("lit")
+    this.playSound(item)
+
+    setTimeout(function() { 
+      tile.classList.remove("lit")
+    }, 300);
+  }
+
+  animate = (sequence) => {
+    var i = 0;
+    var interval = setInterval(() => {
+        this.lightUp(sequence[i]);
+
+        i++;
+        if (i >= sequence.length) {
+            clearInterval(interval);
+        }
+   }, 600);
+  }
 
   makeSequence = () => {
     let sequence = [...this.state.sequence]
     let randomNumber = Math.floor(Math.random()*4) + 1
     sequence.push(randomNumber)
     this.setState({ sequence, isPlayerTurn: true })
+    this.animate(sequence)
   }
 
   startGame = () => {
