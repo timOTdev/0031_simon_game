@@ -5,6 +5,7 @@ body {
   text-align: center;
   color: white;
   background: black;
+  font-family: 'Amatic SC', cursive;
 }
 
 /* App Component */
@@ -17,12 +18,14 @@ body {
   margin: 0 auto;
 }
 
-.App h1 {
-  width: 100%;
-}
-
+.App h1,
 .App h2 {
   width: 100%;
+  font-family: 'Montez', cursive;
+}
+
+.amatic {
+  font-family: 'Amatic SC', cursive;
 }
 
 /* Board Component */
@@ -99,6 +102,12 @@ body {
 }
 
 .Options button {
-  width: 5em;
-  height: 5em;
+  width: 3em;
+  font-size: 1.5em;
+  font-family: 'Amatic SC', cursive;
+  margin-top: 1em;
+}
+
+.Options .strict {
+  background: red;
 }

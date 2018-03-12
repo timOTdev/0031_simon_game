@@ -6,6 +6,8 @@ import green from './sounds/green.wav'
 import red from './sounds/red.wav'
 import yellow from './sounds/yellow.wav'
 import blue from './sounds/blue.wav'
+import mistake from './sounds/mistake.wav'
+import restart from './sounds/restart.wav'
 
 class App extends Component {
   constructor() {
@@ -19,19 +21,76 @@ class App extends Component {
     }
   }
 
+  playSound = (item) => {
+    switch (item) {
+      case 1:
+        new Audio(green).play()
+        break
+      case 2:
+        new Audio(red).play()
+        break
+      case 3:
+        new Audio(yellow).play()
+        break
+      case 4:
+        new Audio(blue).play()
+        break
+      case "mistake":
+        new Audio(mistake).play()
+        break
+      case "restart":
+        new Audio(restart).play()
+        break
+      default:
+        break
+    }
+  }
+
+  lightUp = (item) => {
+    let tile = document.querySelector(`.button${item}`)
+    tile.classList.add("lit")
+    this.playSound(item)
+
+    setTimeout(function() { 
+      tile.classList.remove("lit")
+    }, 300)
+  }
+
+  animate = (memorySequence) => {
+    var i = 0
+    var interval = setInterval(() => {
+        this.lightUp(memorySequence[i])
+
+        i++
+        if (i >= memorySequence.length) {
+            clearInterval(interval)
+        }
+   }, 600)
+  }
+
   userMoveCheck = (index) => {
-    const {level} = this.state
+    const {level, strictMode} = this.state
     if (level <= 19) {
       let memorySequence = [...this.state.memorySequence]
       let userSequence = [...this.state.userSequence]
-      userSequence.push(index);
+      userSequence.push(index)
       this.setState({ userSequence })
       let result = this.checkSequences(memorySequence, userSequence)
       if (result !== null) {
-        if (result === true) {
+        if (!strictMode && result === true) {
           this.makeSequence()
-        } else if (result === false) {
-          this.animate(memorySequence)
+        } 
+        else if (!strictMode && result === false) {
+          this.playSound("mistake")
+          setTimeout(() => {
+            this.animate(memorySequence)
+          }, 1500)
+        }
+        else if (strictMode && result === true) {
+          this.makeSequence()
+        }
+        else if (strictMode && result === false) {
+          this.restartGame()
         }
       }
     }
@@ -50,50 +109,8 @@ class App extends Component {
           tracker = true
         } 
       }
-      console.log(memorySequence, userSequence)
-    }
+    } 
     return tracker
-  }
-
-  playSound = (item) => {
-    switch (item) {
-      case 1:
-        new Audio(green).play()
-        break;
-      case 2:
-        new Audio(red).play()
-        break;
-      case 3:
-        new Audio(yellow).play()
-        break;
-      case 4:
-        new Audio(blue).play()
-        break;
-      default:
-        break;
-    }
-  }
-
-  lightUp = (item) => {
-    let tile = document.querySelector(`.button${item}`)
-    tile.classList.add("lit")
-    this.playSound(item)
-
-    setTimeout(function() { 
-      tile.classList.remove("lit")
-    }, 300);
-  }
-
-  animate = (memorySequence) => {
-    var i = 0;
-    var interval = setInterval(() => {
-        this.lightUp(memorySequence[i]);
-
-        i++;
-        if (i >= memorySequence.length) {
-            clearInterval(interval);
-        }
-   }, 600);
   }
 
   makeSequence = () => {
@@ -117,14 +134,12 @@ class App extends Component {
       this.makeSequence()
     }
   }
-
+  
   setStrictMode = () => {
-    console.log("Set Strict Mode")
     this.setState({ strictMode: !this.state.strictMode })
   }
-
+  
   restartGame = () => {
-    console.log("Restart game")
     let userSequence = [...this.state.userSequence]
     let memorySequence = [...this.state.memorySequence]
     let {level} = this.state
@@ -132,22 +147,23 @@ class App extends Component {
     userSequence = []
     level = null
     this.setState({ memorySequence, userSequence, level })
+    this.playSound("restart")
     setTimeout(() => {
       this.makeSequence()
-    }, 100)
+    }, 4000)
   }
 
   render() {
     return (
       <div className="App">
-        <h1>Simon Game</h1>
+        <h1>Sensational Simon Game</h1>
+        <h2><span className="amatic">Level:</span> {this.state.level}</h2>
         <Board 
           lightUp={this.lightUp}
           userMoveCheck={this.userMoveCheck}
         />
-        <h2>Level: {this.state.level}</h2>
-        <h2>Strict Mode: {this.state.strictMode ? "On" : "Off"}</h2>
         <Options 
+          {...this.state}
           startGame={this.startGame}
           setStrictMode={this.setStrictMode}
           restartGame={this.restartGame}
