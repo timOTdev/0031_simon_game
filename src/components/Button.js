@@ -1,10 +1,19 @@
-import React from 'react';
+import React, {Component} from 'react';
 
-const Button = (props) => {
-  return (
-    <button className={"button" + props.index} id={props.color}>
-      {props.index}
-    </button>
-  )
+class Button extends Component {
+  lightHandler = (e, index) => {
+    e.preventDefault()
+    this.props.lightUp(index)
+    this.props.userMoveCheck(index)
+  }
+
+  render() {
+    return (
+      <button className={"button" + this.props.index} id={this.props.color} onClick={(e) => this.lightHandler(e, this.props.index)}>
+        {this.props.index}
+      </button>
+    )
+  }
 }
+
 export default Button

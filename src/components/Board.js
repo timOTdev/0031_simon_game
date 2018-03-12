@@ -8,6 +8,8 @@ class Board extends Component {
       <Button
         color={color}
         index={index}
+        lightUp={this.props.lightUp}
+        userMoveCheck={this.props.userMoveCheck}
       />
     )
   }

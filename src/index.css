@@ -3,6 +3,8 @@ body {
   padding: 0;
   font-family: sans-serif;
   text-align: center;
+  color: white;
+  background: black;
 }
 
 /* App Component */
@@ -36,11 +38,16 @@ body {
   background: gray;
 }
 
+.black {
+  background: black;
+}
+
 /* Button Component */
 .Board > * {
   width: 24em;
   height: 24em;
   opacity: 0.5;
+  border: 3px solid black;
 }
 
 .Board > *:hover {
@@ -83,7 +90,6 @@ body {
   opacity: 1;
   border: 3px solid white;
 }
-
 
 /* Options Component */
 .Options {

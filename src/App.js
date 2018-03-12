@@ -11,11 +11,48 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      sequence: [],
-      level: 1,
+      memorySequence: [],
+      userSequence: [],
+      level: null,
       gameStarted: false,
-      isPlayerTurn: false,
+      strictMode: false
     }
+  }
+
+  userMoveCheck = (index) => {
+    const {level} = this.state
+    if (level <= 19) {
+      let memorySequence = [...this.state.memorySequence]
+      let userSequence = [...this.state.userSequence]
+      userSequence.push(index);
+      this.setState({ userSequence })
+      let result = this.checkSequences(memorySequence, userSequence)
+      if (result !== null) {
+        if (result === true) {
+          this.makeSequence()
+        } else if (result === false) {
+          this.animate(memorySequence)
+        }
+      }
+    }
+  }
+
+  checkSequences = (memorySequence, userSequence) => {
+    let tracker = null
+    if (userSequence.length !== 0 && memorySequence.length !== 0) {
+      for (let index in userSequence) {
+        if (userSequence[index] !== memorySequence[index]) {
+          userSequence = []
+          this.setState({ userSequence })
+          tracker = false
+        }
+        else if (userSequence.length === memorySequence.length && userSequence[index] === memorySequence[index]) {
+          tracker = true
+        } 
+      }
+      console.log(memorySequence, userSequence)
+    }
+    return tracker
   }
 
   playSound = (item) => {
@@ -47,45 +84,69 @@ class App extends Component {
     }, 300);
   }
 
-  animate = (sequence) => {
+  animate = (memorySequence) => {
     var i = 0;
     var interval = setInterval(() => {
-        this.lightUp(sequence[i]);
+        this.lightUp(memorySequence[i]);
 
         i++;
-        if (i >= sequence.length) {
+        if (i >= memorySequence.length) {
             clearInterval(interval);
         }
    }, 600);
   }
 
   makeSequence = () => {
-    let sequence = [...this.state.sequence]
-    let randomNumber = Math.floor(Math.random()*4) + 1
-    sequence.push(randomNumber)
-    this.setState({ sequence, isPlayerTurn: true })
-    this.animate(sequence)
+    let { level } = this.state
+    if (level <= 19) {
+      let userSequence = [...this.state.userSequence]
+      let memorySequence = [...this.state.memorySequence]
+      let randomNumber = Math.floor(Math.random()*4) + 1
+      let {level} = this.state
+      userSequence = []
+      memorySequence.push(randomNumber)
+      level = memorySequence.length
+      this.animate(memorySequence)
+      this.setState({ memorySequence, userSequence, level})
+    }
   }
-
+  
   startGame = () => {
-    console.log("Game started")
-    this.makeSequence()
+    if (!this.state.gameStarted) {
+      this.setState({ gameStarted: true })
+      this.makeSequence()
+    }
   }
 
   setStrictMode = () => {
     console.log("Set Strict Mode")
+    this.setState({ strictMode: !this.state.strictMode })
   }
 
   restartGame = () => {
     console.log("Restart game")
+    let userSequence = [...this.state.userSequence]
+    let memorySequence = [...this.state.memorySequence]
+    let {level} = this.state
+    memorySequence = []
+    userSequence = []
+    level = null
+    this.setState({ memorySequence, userSequence, level })
+    setTimeout(() => {
+      this.makeSequence()
+    }, 100)
   }
 
   render() {
     return (
       <div className="App">
         <h1>Simon Game</h1>
-        <Board />
+        <Board 
+          lightUp={this.lightUp}
+          userMoveCheck={this.userMoveCheck}
+        />
         <h2>Level: {this.state.level}</h2>
+        <h2>Strict Mode: {this.state.strictMode ? "On" : "Off"}</h2>
         <Options 
           startGame={this.startGame}
           setStrictMode={this.setStrictMode}
