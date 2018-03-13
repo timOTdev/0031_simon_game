@@ -2,6 +2,16 @@
 
 <figure><img src="./src/readme/main.png" alt="Simon Game" style="width: 60%; display: block; margin-left: auto; margin-right: auto;"/></figure>
 
+## To view this app online
+- To view deployed app, visit: https://timh1203.github.io/simon-game
+
+## To edit the source code
+- Github Repo: https://github.com/timh1203/simon-game
+1. Have NPM and NodeJS installed on your computer
+2. Navigate to the directory of choice and type `git clone https://github.com/timh1203/simon-game`
+3. Alternatively, you can also fork the repo and clone it (no future updates planned)
+4. Open up your favorite editor and have fun!
+
 ## About
 - [Simon Game](https://en.wikipedia.org/wiki/Simon_(game)) is a memory game released in 1978
 - A solo game that tests the player's ability to remember a sequence and repeat the pattern
@@ -40,16 +50,7 @@
 - CSS
 - JavaScript
 - ReactJS (Create-React-App)
-
-## To view this app online
-- To view deployed app, visit: https://timh1203.github.io/simon-game
-
-## To edit the source code
-- Github Repo: https://github.com/timh1203/simon-game
-1. Have NPM and NodeJS installed on your computer
-2. Navigate to the directory of choice and type `git clone https://github.com/timh1203/simon-game`
-3. Alternatively, you can also fork the repo and clone it (no future updates planned)
-4. Open up your favorite editor and have fun!
+- Sound effects from [FreeSound](https://freesound.org/)
 
 ## More pictures
 ### Strict Mode On
