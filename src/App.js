@@ -8,6 +8,7 @@ import yellow from './sounds/yellow.wav'
 import blue from './sounds/blue.wav'
 import mistake from './sounds/mistake.wav'
 import restart from './sounds/restart.wav'
+import win from './sounds/win.wav'
 
 class App extends Component {
   constructor() {
@@ -41,16 +42,18 @@ class App extends Component {
       case "restart":
         new Audio(restart).play()
         break
+      case "win":
+        new Audio(win).play()
+        break
       default:
         break
     }
   }
 
   lightUp = (item) => {
-    let tile = document.querySelector(`.button${item}`)
+    const tile = document.querySelector(`.button${item}`)
     tile.classList.add("lit")
     this.playSound(item)
-
     setTimeout(function() { 
       tile.classList.remove("lit")
     }, 300)
@@ -60,7 +63,6 @@ class App extends Component {
     var i = 0
     var interval = setInterval(() => {
         this.lightUp(memorySequence[i])
-
         i++
         if (i >= memorySequence.length) {
             clearInterval(interval)
@@ -70,14 +72,17 @@ class App extends Component {
 
   userMoveCheck = (index) => {
     const {level, strictMode} = this.state
-    if (level <= 19) {
-      let memorySequence = [...this.state.memorySequence]
-      let userSequence = [...this.state.userSequence]
+    if (level <= 20) {
+      const memorySequence = [...this.state.memorySequence]
+      const userSequence = [...this.state.userSequence]
       userSequence.push(index)
       this.setState({ userSequence })
-      let result = this.checkSequences(memorySequence, userSequence)
+      const result = this.checkSequences(memorySequence, userSequence)
       if (result !== null) {
-        if (!strictMode && result === true) {
+        if (level === 20 && result === true) {
+          this.playSound("win")
+        }
+        else if (result === true && level <= 19) {
           this.makeSequence()
         } 
         else if (!strictMode && result === false) {
@@ -85,9 +90,6 @@ class App extends Component {
           setTimeout(() => {
             this.animate(memorySequence)
           }, 1500)
-        }
-        else if (strictMode && result === true) {
-          this.makeSequence()
         }
         else if (strictMode && result === false) {
           this.restartGame()
@@ -114,12 +116,11 @@ class App extends Component {
   }
 
   makeSequence = () => {
-    let { level } = this.state
+    let {level} = this.state
     if (level <= 19) {
       let userSequence = [...this.state.userSequence]
       let memorySequence = [...this.state.memorySequence]
-      let randomNumber = Math.floor(Math.random()*4) + 1
-      let {level} = this.state
+      const randomNumber = Math.floor(Math.random()*4) + 1
       userSequence = []
       memorySequence.push(randomNumber)
       level = memorySequence.length
