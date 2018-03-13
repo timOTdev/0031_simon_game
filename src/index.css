@@ -8,6 +8,10 @@ body {
   font-family: 'Amatic SC', cursive;
 }
 
+a {
+  color: goldenrod;
+}
+
 /* App Component */
 .App {
   display: flex;
@@ -20,6 +24,7 @@ body {
 
 .App h1,
 .App h2 {
+  margin: 1em 0 0 0;
   width: 100%;
   font-family: 'Montez', cursive;
 }
@@ -31,8 +36,8 @@ body {
 /* Board Component */
 .Board {
   display: flex;
-  width: 44em;
-  height: 44em;
+  width: 36em;
+  height: 36em;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
@@ -47,10 +52,11 @@ body {
 
 /* Button Component */
 .Board > * {
-  width: 24em;
-  height: 24em;
+  width: 20em;
+  height: 20em;
   opacity: 0.5;
   border: 3px solid black;
+  font-family: 'Montez', cursive;
 }
 
 .Board > *:hover {
@@ -96,13 +102,12 @@ body {
 
 /* Options Component */
 .Options {
-  width: 50%;
-  display: flex;
-  justify-content: space-between;
+  width: 100%;
+  margin-top: 1em;
 }
 
 .Options button {
-  width: 3em;
+  width: 5em;
   font-size: 1.5em;
   font-family: 'Amatic SC', cursive;
   margin-top: 1em;
@@ -110,4 +115,75 @@ body {
 
 .Options .strict {
   background: red;
+}
+
+/* Footer */
+.Footer {
+  width: 100%;
+  margin: 2em;
+  font-size: 1em;
+}
+
+@media all and (max-width: 1350px) {
+  /* App Component */
+  .App {
+    max-width: 90%;
+  }
+
+  .App h1,
+  .App h2 {
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Board Component */
+  .Board {
+    width: 30em;
+    height: 30em;
+  }
+
+  /* Button Component */
+  .Board > * {
+    width: 16em;
+    height: 16em;
+  }
+
+  /* Options Component */
+  .Options {
+    margin: 0;
+  }
+}
+
+
+@media all and (max-width: 1000px) {
+  /* Board Component */
+  .Board {
+    width: 23em;
+    height: 23em;
+  }
+  
+  /* Button Component */
+  .Board > * {
+    width: 12em;
+    height: 12em;
+  }
+}
+
+@media all and (max-width: 500px) {
+  /* Board Component */
+  .Board {
+    width: 16em;
+    height: 16em;
+  }
+
+  /* Button Component */
+  .Board > * {
+    width: 8em;
+    height: 8em;
+  }
+
+  /* Options Component */
+  .Options button {
+    width: 4em;
+  }
 }

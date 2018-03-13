@@ -169,6 +169,10 @@ class App extends Component {
           setStrictMode={this.setStrictMode}
           restartGame={this.restartGame}
         />
+
+        <div className="Footer">
+          <a href="http://timothyhoang.net/">Copyright © 2018 Timothy Hoang</a> 
+        </div>
       </div>
     )
   }
