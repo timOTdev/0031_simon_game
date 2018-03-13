@@ -6,6 +6,7 @@ import green from './sounds/green.wav'
 import red from './sounds/red.wav'
 import yellow from './sounds/yellow.wav'
 import blue from './sounds/blue.wav'
+import click from './sounds/click.wav'
 import mistake from './sounds/mistake.wav'
 import restart from './sounds/restart.wav'
 import win from './sounds/win.wav'
@@ -22,31 +23,41 @@ class App extends Component {
     }
   }
 
+  // Keyboard Events
+  componentDidMount() {
+    document.addEventListener("keypress", this.keyPress)
+  }
+
+  componentWillUnmount() {
+    document.addEventListener('keypress', this.keyPress);
+  }
+
+  keyPress = (e) => {
+    e.preventDefault()
+    switch(e.which) {
+      case 49: this.lightUp(1); this.userMoveCheck(1); break
+      case 50: this.lightUp(2); this.userMoveCheck(2); break
+      case 51: this.lightUp(3); this.userMoveCheck(3); break
+      case 52: this.lightUp(4); this.userMoveCheck(4); break
+      case 32: this.playSound("click"); this.startGame(); break
+      case 13: this.playSound("click"); this.restartGame(); break
+      case 48: this.playSound("click"); this.setStrictMode(); break
+      default: break
+    }
+  }
+
+  // Game Effects
   playSound = (item) => {
     switch (item) {
-      case 1:
-        new Audio(green).play()
-        break
-      case 2:
-        new Audio(red).play()
-        break
-      case 3:
-        new Audio(yellow).play()
-        break
-      case 4:
-        new Audio(blue).play()
-        break
-      case "mistake":
-        new Audio(mistake).play()
-        break
-      case "restart":
-        new Audio(restart).play()
-        break
-      case "win":
-        new Audio(win).play()
-        break
-      default:
-        break
+      case 1: new Audio(green).play(); break
+      case 2: new Audio(red).play(); break
+      case 3: new Audio(yellow).play(); break
+      case 4: new Audio(blue).play(); break
+      case "click": new Audio(click).play(); break
+      case "mistake": new Audio(mistake).play(); break
+      case "restart": new Audio(restart).play(); break
+      case "win": new Audio(win).play(); break
+      default: break
     }
   }
 
@@ -70,6 +81,7 @@ class App extends Component {
    }, 600)
   }
 
+  // Game Mechanics
   userMoveCheck = (index) => {
     const {level, strictMode} = this.state
     if (level <= 20) {
@@ -78,6 +90,7 @@ class App extends Component {
       userSequence.push(index)
       this.setState({ userSequence })
       const result = this.checkSequences(memorySequence, userSequence)
+
       if (result !== null) {
         if (level === 20 && result === true) {
           this.playSound("win")
@@ -159,10 +172,12 @@ class App extends Component {
       <div className="App">
         <h1>Sensational Simon Game</h1>
         <h2><span className="amatic">Level:</span> {this.state.level}</h2>
+        
         <Board 
           lightUp={this.lightUp}
           userMoveCheck={this.userMoveCheck}
         />
+
         <Options 
           {...this.state}
           startGame={this.startGame}

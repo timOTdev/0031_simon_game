@@ -4,9 +4,9 @@
 
 ## About
 - [Simon Game](https://en.wikipedia.org/wiki/Simon_(game)) is a memory game released in 1978
-- This solo game tests the player's ability to remember a sequence and repeat the pattern
+- A solo game that tests the player's ability to remember a sequence and repeat the pattern
 - By beating level 20, the player wins the game
-- This game is designed for anyone and can be used by everyone
+- This game is designed for anyone who wants to test their memory skills
 - Currently: final stage, no more future updates planned (as of 3/13/2018)
 
 ## Features
@@ -29,10 +29,11 @@
 1. Decide if you want to play normal or strict mode (click "Strict Mode" or keyboard `0` key)
 2. Start the game by pushing start or the `Spacebar` key
 3. Listen and look at the memory sequence
-4. Click or input the correct sequence once the memory sequence finishes
+4. Click or input (keyboard `1`, `2`, `3`, `4` keys) the correct sequence once the memory sequence finishes
 5. If incorrect input, the sequence will replay (non-strict mode) or restart the whole game (strict mode)
 6. If correct input, the game will replay the same sequence and add an additional pattern (both modes)
 7. Once you have completed level 20 and correctly repeated 20 patterns, you will win and receive a fanfare
+8. Restart the game at anypoint if desired (click "Restart" or keyboard `Enter` key)
 
 ## Technologies for this project
 - HTML
