@@ -1,4 +1,4 @@
-# Simon Game by Timothy Hoang
+# 0031_simon_game
 
 <figure><img src="./src/readme/main.png" alt="Simon Game" style="width: 60%; display: block; margin-left: auto; margin-right: auto;"/></figure>
 
